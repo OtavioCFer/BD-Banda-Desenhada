@@ -74,4 +74,9 @@ Relacionamentos N:N são tratados por tabelas intermediárias como:
 - `QuadrinhoAutor`
 - `QuadrinhoGenero`
 
+## 👥 Autores
 
+- **Otávio Augusto da Cruz Fernandes**  
+- **Gabriel Lucca Milanez Diniz**
+
+> Universidade Estadual de Londrina — Disciplina de Banco de Dados I (2025)
