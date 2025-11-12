@@ -60,13 +60,13 @@ O sistema traz três relatórios principais (e muito úteis 💡):
 ---
 
 ## 🧩 Modelo de Dados
-Usuário
-Editora
-Autor
-Gênero
-Quadrinho
-Coleção
-Avaliação
+- Usuário
+- Editora
+- Autor
+- Gênero
+- Quadrinho
+- Coleção
+- Avaliação
 
 
 Relacionamentos N:N são tratados por tabelas intermediárias como:
