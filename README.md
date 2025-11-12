@@ -60,6 +60,7 @@ O sistema traz três relatórios principais (e muito úteis 💡):
 ---
 
 ## 🧩 Modelo de Dados
+O sistema é composto por entidades como:
 - Usuário
 - Editora
 - Autor
@@ -72,5 +73,5 @@ O sistema traz três relatórios principais (e muito úteis 💡):
 Relacionamentos N:N são tratados por tabelas intermediárias como:
 - `QuadrinhoAutor`
 - `QuadrinhoGenero`
-O sistema é composto por entidades como:
+
 
