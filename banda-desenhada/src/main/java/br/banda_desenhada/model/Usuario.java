@@ -7,7 +7,7 @@ public class Usuario {
     private Integer idUsuario;
     private String nome;
     private String email;
-    private String senha_hash;
+    private String SenhaHash;
     private OffsetDateTime criadoEm;
 
     public Integer getIdUsuario() {
@@ -34,12 +34,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getsenha_hash() {
-        return senha_hash;
+    public String getSenhaHash() {
+        return SenhaHash;
     }
 
-    public void setsenha_hash(String senha_hash) {
-        this.senha_hash = senha_hash;
+    public void setSenhaHash(String SenhaHash) {
+        this.SenhaHash = SenhaHash;
     }
 
     public OffsetDateTime getCriadoEm() {
