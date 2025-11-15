@@ -19,18 +19,20 @@ public class QuadrinhoRepository {
 
     public List<Quadrinho> listarTodos() {
         String sql = """
-            SELECT id_quadrinho,
-                   titulo,
-                   sinopse,
-                   numero_edicao,
-                   ano_edicao,
-                   paginas,
-                   isbn,
-                   capa_url,
-                   criado_em,
-                   id_editora
-            FROM quadrinho
-            ORDER BY titulo
+            SELECT q.id_quadrinho,
+                   q.titulo,
+                   q.sinopse,
+                   q.numero_edicao,
+                   q.ano_edicao,
+                   q.paginas,
+                   q.isbn,
+                   q.capa_url,
+                   q.criado_em,
+                   q.id_editora,
+                   e.nome AS nome_editora
+            FROM quadrinho q
+            JOIN editora e ON e.id_editora = q.id_editora
+            ORDER BY q.titulo
             """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
@@ -51,6 +53,7 @@ public class QuadrinhoRepository {
             }
 
             q.setIdEditora((Integer) rs.getObject("id_editora"));
+            q.setNomeEditora(rs.getString("nome_editora"));
             return q;
         });
     }

@@ -14,6 +14,7 @@ public class Quadrinho {
     private String capaUrl;
     private OffsetDateTime criadoEm;
     private Integer idEditora;
+    private String nomeEditora;
 
     public Integer getIdQuadrinho() {
         return idQuadrinho;
@@ -94,4 +95,13 @@ public class Quadrinho {
     public void setIdEditora(Integer idEditora) {
         this.idEditora = idEditora;
     }
+
+    public String getNomeEditora() {
+        return nomeEditora;
+    }
+
+    public void setNomeEditora(String nomeEditora) {
+        this.nomeEditora = nomeEditora;
+    }
+
 }
