@@ -17,6 +17,7 @@
         <th>Ano</th>
         <th>Páginas</th>
         <th>ISBN</th>
+        <th>Editora</th>
     </tr>
     </thead>
     <tbody>
@@ -26,6 +27,7 @@
         <td th:text="${q.anoEdicao}">Ano</td>
         <td th:text="${q.paginas}">Páginas</td>
         <td th:text="${q.isbn}">ISBN</td>
+        <td th:text="${q.nomeEditora}">Editora</td>
     </tr>
     <tr th:if="${#lists.isEmpty(quadrinhos)}">
         <td colspan="5">Nenhum quadrinho cadastrado ainda.</td>
