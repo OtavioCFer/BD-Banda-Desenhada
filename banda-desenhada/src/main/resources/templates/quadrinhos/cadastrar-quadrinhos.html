@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Quadrinho</title>
+</head>
+<body>
+
+<h1>Cadastrar Quadrinho</h1>
+
+<form th:action="@{/quadrinhos/cadastrar-quadrinho}"
+      th:object="${quadrinho}"
+      method="post">
+
+    <label>Título:</label>
+    <input type="text" th:field="*{titulo}" required />
+    <br><br>
+
+    <label>Número da edição:</label>
+    <input type="number" th:field="*{numeroEdicao}" required />
+    <br><br>
+
+    <label>Ano da edição:</label>
+    <input type="number" th:field="*{anoEdicao}" required />
+    <br><br>
+
+    <label>Número de páginas:</label>
+    <input type="number" th:field="*{paginas}" required />
+    <br><br>
+
+    <label>ISBN:</label>
+    <input type="text" th:field="*{isbn}" />
+    <br><br>
+
+    <label>Editora:</label>
+    <input type="text" th:field="*{nomeEditora}" />
+    <br><br>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<br>
+<p><a th:href="@{/quadrinhos}">⬅ Voltar para a lista de quadrinhos</a></p>
+<p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+
+</body>
+</html>
