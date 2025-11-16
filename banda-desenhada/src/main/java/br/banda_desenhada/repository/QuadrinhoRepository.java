@@ -57,4 +57,37 @@ public class QuadrinhoRepository {
             return q;
         });
     }
+
+    public void salvar(Quadrinho quadrinho) {
+    String sql = """
+        INSERT INTO quadrinho (
+            titulo,
+            sinopse,
+            numero_edicao,
+            ano_edicao,
+            paginas,
+            isbn,
+            capa_url,
+            criado_em,
+            id_editora
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """;
+        
+    OffsetDateTime criadoEm = quadrinho.getCriadoEm();
+    if (criadoEm == null) {
+        criadoEm = OffsetDateTime.now();
+    }
+
+    jdbcTemplate.update(sql,
+            quadrinho.getTitulo(),
+            quadrinho.getSinopse(),
+            quadrinho.getNumeroEdicao(),
+            quadrinho.getAnoEdicao(),
+            quadrinho.getPaginas(),
+            quadrinho.getIsbn(),
+            quadrinho.getCapaUrl(),
+            criadoEm,
+            quadrinho.getIdEditora() 
+    );
+}
 }
