@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Autores</title>
+</head>
+<body>
+<h1>Lista de Autores</h1>
+
+<a th:href="@{/autores/cadastrar-autor}">Cadastrar novo autor</a>
+<br><br>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Pseudônimo</th>
+        <th>Ações</th>
+    </tr>
+
+    <tr th:each="autor : ${autores}">
+        <td th:text="${autor.idAutor}"></td>
+        <td th:text="${autor.nome}"></td>
+        <td th:text="${autor.pseudonimo}"></td>
+        <td>
+            <a th:href="@{'/autores/deletar/' + ${autor.idAutor}}" 
+               onclick="return confirm('Deseja realmente excluir este autor?');">
+               Remover
+            </a>
+        </td>
+    </tr>
+</table>
+
+<br>
+<p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+
+</body>
+</html>
