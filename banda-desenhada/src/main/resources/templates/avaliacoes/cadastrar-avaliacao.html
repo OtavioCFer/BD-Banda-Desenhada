@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Avaliar Quadrinho</title>
+</head>
+<body>
+
+<h1>Avaliar Quadrinho</h1>
+
+<form th:action="@{/avaliacoes/cadastrar}"
+      th:object="${avaliacao}"
+      method="post">
+
+    <input type="hidden" th:field="*{idQuadrinho}" />
+
+    <input type="hidden" th:field="*{idUsuario}" />
+
+    <label>Roteiro (1 a 10):</label>
+    <select th:field="*{roteiro}">
+        <option th:each="n : ${#numbers.sequence(1,10)}"
+                th:value="${n}"
+                th:text="${n}">
+        </option>
+    </select>
+    <br><br>
+
+    <label>Arte (1 a 10):</label>
+    <select th:field="*{arte}">
+        <option th:each="n : ${#numbers.sequence(1,10)}"
+                th:value="${n}"
+                th:text="${n}">
+        </option>
+    </select>
+    <br><br>
+
+    <label>Cores (1 a 10):</label>
+    <select th:field="*{cores}">
+        <option th:each="n : ${#numbers.sequence(1,10)}"
+                th:value="${n}"
+                th:text="${n}">
+        </option>
+    </select>
+    <br><br>
+
+    <label>Edição (1 a 10):</label>
+    <select th:field="*{edicao}">
+        <option th:each="n : ${#numbers.sequence(1,10)}"
+                th:value="${n}"
+                th:text="${n}">
+        </option>
+    </select>
+    <br><br>
+
+    <label>Comentário (opcional):</label><br>
+    <textarea th:field="*{comentario}" rows="4" cols="50"></textarea>
+    <br><br>
+
+    <button type="submit">Salvar Avaliação</button>
+</form>
+
+<br>
+<p><a th:href="@{/quadrinhos}">⬅ Voltar para a lista de quadrinhos</a></p>
+<p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+
+</body>
+</html>
