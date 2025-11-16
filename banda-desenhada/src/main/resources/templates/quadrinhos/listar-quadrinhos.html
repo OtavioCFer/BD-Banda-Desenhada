@@ -20,6 +20,7 @@
         <th>Páginas</th>
         <th>ISBN</th>
         <th>Editora</th>
+        <th>Ações</th>
     </tr>
     </thead>
     <tbody>
@@ -30,9 +31,12 @@
         <td th:text="${q.paginas}">Páginas</td>
         <td th:text="${q.isbn}">ISBN</td>
         <td th:text="${q.nomeEditora}">Editora</td>
+        <td>
+            <a th:href="@{|/avaliacoes/cadastrar/${q.idQuadrinho}|}">Avaliar</a>
+        </td>
     </tr>
     <tr th:if="${#lists.isEmpty(quadrinhos)}">
-        <td colspan="6">Nenhum quadrinho cadastrado ainda.</td>
+        <td colspan="7">Nenhum quadrinho cadastrado ainda.</td>
     </tr>
     </tbody>
 </table>
