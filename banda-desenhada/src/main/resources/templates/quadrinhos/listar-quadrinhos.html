@@ -7,6 +7,8 @@
 <body>
 <h1>Quadrinhos cadastrados</h1>
 
+<p><a th:href="@{/quadrinhos/cadastrar-quadrinho}">➕ Cadastrar novo quadrinho</a></p>
+
 <p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
 
 <table border="1" cellpadding="4" cellspacing="0">
@@ -30,7 +32,7 @@
         <td th:text="${q.nomeEditora}">Editora</td>
     </tr>
     <tr th:if="${#lists.isEmpty(quadrinhos)}">
-        <td colspan="5">Nenhum quadrinho cadastrado ainda.</td>
+        <td colspan="6">Nenhum quadrinho cadastrado ainda.</td>
     </tr>
     </tbody>
 </table>
