@@ -3,6 +3,7 @@ package br.banda_desenhada.service;
 import br.banda_desenhada.model.Genero;
 import br.banda_desenhada.repository.GeneroRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -22,11 +23,12 @@ public class GeneroService {
         generoRepository.save(genero);
     }
 
-    public void atualizar(Genero genero) {
+    public void atualizar(Integer id, Genero genero) {
+        genero.setIdGenero(id);
         generoRepository.update(genero);
     }
 
-    public void excluir(Integer id) {
+    public void deletar(Integer id) {
         generoRepository.delete(id);
     }
 

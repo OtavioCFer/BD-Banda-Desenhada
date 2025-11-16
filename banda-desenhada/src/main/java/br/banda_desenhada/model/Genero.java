@@ -2,23 +2,22 @@ package br.banda_desenhada.model;
 
 public class Genero {
 
-    private Integer id;
+    private Integer idGenero;
     private String nome;
 
-    public Genero() {
-    }
+    public Genero() {}
 
-    public Genero(Integer id, String nome) {
-        this.id = id;
+    public Genero(Integer idGenero, String nome) {
+        this.idGenero = idGenero;
         this.nome = nome;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdGenero() {
+        return idGenero;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdGenero(Integer idGenero) {
+        this.idGenero = idGenero;
     }
 
     public String getNome() {
