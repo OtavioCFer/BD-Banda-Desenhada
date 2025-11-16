@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Gêneros</title>
+</head>
+<body>
+
+<h1>Lista de Gêneros</h1>
+
+<a th:href="@{/generos/cadastrar-genero}">Cadastrar novo gênero</a>
+<br><br>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ações</th>
+    </tr>
+
+    <tr th:each="genero : ${generos}">
+        <td th:text="${genero.idGenero}"></td>
+        <td th:text="${genero.nome}"></td>
+        <td>
+            <a th:href="@{'/generos/deletar/' + ${genero.idGenero}}">Remover</a>
+        </td>
+    </tr>
+</table>
+
+<p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+
+</body>
+</html>
