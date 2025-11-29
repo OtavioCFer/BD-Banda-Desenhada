@@ -105,4 +105,10 @@ public class QuizRepository {
             return questao;
         }, idQuiz);
     }
+
+    public void removerTodasQuestoesDoQuiz(Long idQuiz) {
+    String sql = "DELETE FROM quiz_questao WHERE id_quiz = ?";
+    jdbcTemplate.update(sql, idQuiz);
+    }
+
 }
