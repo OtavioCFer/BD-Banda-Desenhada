@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Responder Quiz - ' + ${quiz.titulo}">Responder Quiz</title>
+</head>
+<body>
+
+<h1 th:text="'Responder Quiz: ' + ${quiz.titulo}"></h1>
+
+<form th:action="@{'/responder-quiz/' + ${quiz.idQuiz}}" method="post">
+    <input type="hidden" name="idUsuario" th:value="${idUsuario}">
+
+    <div th:each="questao, iterStat : ${questoes}" style="margin-bottom: 15px;">
+        <p>
+            <strong th:text="${iterStat.index + 1} + '. ' + ${questao.enunciado}"></strong>
+            <span th:text="' (' + ${questao.tipo} + ')'"></span>
+        </p>
+
+        <div th:switch="${questao.tipo}">
+            <div th:case="'TEXTO'">
+                <textarea th:name="${'resposta_' + questao.idQuestao}"
+                          rows="3"
+                          cols="60"></textarea>
+            </div>
+            <div th:case="'MULTIPLA'">
+                <input type="text"
+                       th:name="${'resposta_' + questao.idQuestao}"
+                       placeholder="Digite a opção escolhida (ex: A, B, C)">
+            </div>
+            <div th:case="*">
+                <input type="text"
+                       th:name="${'resposta_' + questao.idQuestao}">
+            </div>
+        </div>
+    </div>
+
+    <button type="submit">Enviar Respostas</button>
+    <a th:href="@{/quizzes}">Cancelar</a>
+</form>
+
+</body>
+</html>

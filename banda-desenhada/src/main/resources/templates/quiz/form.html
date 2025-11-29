@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${quiz.idQuiz} != null ? 'Editar Quiz' : 'Novo Quiz'">Quiz</title>
+</head>
+<body>
+
+<h1 th:text="${quiz.idQuiz} != null ? 'Editar Quiz' : 'Novo Quiz'"></h1>
+
+<form th:action="${quiz.idQuiz} != null ?
+                 @{'/quizzes/' + ${quiz.idQuiz} + '/atualizar'} :
+                 @{/quizzes}"
+      method="post"
+      th:object="${quiz}">
+
+    <div>
+        <label for="titulo">Título:</label>
+        <input id="titulo" type="text" th:field="*{titulo}" required>
+    </div>
+
+    <div>
+        <label for="descricao">Descrição:</label><br>
+        <textarea id="descricao" th:field="*{descricao}" rows="4" cols="40"></textarea>
+    </div>
+
+    <div>
+        <button type="submit">Salvar</button>
+        <a th:href="@{/quizzes}">Cancelar</a>
+    </div>
+</form>
+
+</body>
+</html>

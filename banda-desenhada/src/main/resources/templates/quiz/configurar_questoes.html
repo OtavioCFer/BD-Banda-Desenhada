@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Configurar Questões - ' + ${quiz.titulo}">Configurar Questões</title>
+</head>
+<body>
+
+<h1 th:text="'Configurar Questões para: ' + ${quiz.titulo}"></h1>
+
+<form th:action="@{'/quizzes/' + ${quiz.idQuiz} + '/salvar-questoes'}" method="post">
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Selecionar</th>
+            <th>ID</th>
+            <th>Enunciado</th>
+            <th>Tipo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="questao : ${todasQuestoes}">
+            <td>
+                <input type="checkbox"
+                       name="idsQuestoesSelecionadas"
+                       th:value="${questao.idQuestao}"
+                       th:checked="${idsQuestoesDoQuiz.contains(questao.idQuestao)}">
+            </td>
+            <td th:text="${questao.idQuestao}"></td>
+            <td th:text="${questao.enunciado}"></td>
+            <td th:text="${questao.tipo}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 10px;">
+        <button type="submit">Salvar Questões do Quiz</button>
+        <a th:href="@{/quizzes}">Voltar</a>
+    </div>
+</form>
+
+</body>
+</html>
