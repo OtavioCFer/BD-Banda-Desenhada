@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Questões</title>
+</head>
+<body>
+
+<h1>Questões</h1>
+
+<a th:href="@{/questoes/nova}">Nova Questão</a>
+|
+<a th:href="@{/quizzes}">Voltar para Quizzes</a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Enunciado</th>
+        <th>Tipo</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="questao : ${questoes}">
+        <td th:text="${questao.idQuestao}"></td>
+        <td th:text="${questao.enunciado}"></td>
+        <td th:text="${questao.tipo}"></td>
+        <td>
+            <a th:href="@{'/questoes/' + ${questao.idQuestao} + '/editar'}">Editar</a>
+            |
+            <form th:action="@{'/questoes/' + ${questao.idQuestao} + '/remover'}"
+                  method="post"
+                  style="display:inline">
+                <button type="submit">Remover</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${questao.idQuestao} != null ? 'Editar Questão' : 'Nova Questão'">
+        Questão
+    </title>
+</head>
+<body>
+
+<h1 th:text="${questao.idQuestao} != null ? 'Editar Questão' : 'Nova Questão'"></h1>
+
+<form th:action="${questao.idQuestao} != null ?
+                 @{'/questoes/' + ${questao.idQuestao} + '/atualizar'} :
+                 @{/questoes}"
+      method="post"
+      th:object="${questao}">
+
+    <div>
+        <label for="enunciado">Enunciado:</label><br>
+        <textarea id="enunciado" th:field="*{enunciado}" rows="4" cols="60" required></textarea>
+    </div>
+
+    <div>
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" th:field="*{tipo}">
+            <option value="MULTIPLA">Múltipla Escolha</option>
+            <option value="TEXTO">Texto Livre</option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit">Salvar</button>
+        <a th:href="@{/questoes}">Cancelar</a>
+    </div>
+</form>
+
+</body>
+</html>
