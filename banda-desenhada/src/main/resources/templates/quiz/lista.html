@@ -30,7 +30,7 @@
             |
             <a th:href="@{'/quizzes/' + ${quiz.idQuiz} + '/configurar-questoes'}">Configurar Questões</a>
             |
-            <a th:href="@{'/responder-quiz/' + ${quiz.idQuiz} + '(?idUsuario=1)'}">Responder como Usuário 1</a>
+            <a th:href="@{'/responder-quiz/' + ${quiz.idQuiz} + '?idUsuario=1'}">Responder como Usuário 1</a>
             |
             <form th:action="@{'/quizzes/' + ${quiz.idQuiz} + '/remover'}"
                   method="post"
