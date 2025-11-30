@@ -4,6 +4,7 @@ import br.banda_desenhada.model.Quiz;
 import br.banda_desenhada.model.Questao;
 import br.banda_desenhada.repository.QuizRepository;
 import br.banda_desenhada.repository.QuestaoRepository;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class QuizController {
         this.questaoRepository = questaoRepository;
     }
 
+    // LISTAR QUIZZES
     @GetMapping
     public String listarQuizzes(Model model) {
         List<Quiz> quizzes = quizRepository.listarTodos();
@@ -31,18 +33,21 @@ public class QuizController {
         return "quiz/lista";
     }
 
+    // FORM NOVO QUIZ
     @GetMapping("/novo")
     public String novoQuizForm(Model model) {
         model.addAttribute("quiz", new Quiz());
         return "quiz/form";
     }
 
+    // SALVAR NOVO QUIZ
     @PostMapping
     public String salvarNovoQuiz(@ModelAttribute Quiz quiz) {
         quizRepository.inserir(quiz);
         return "redirect:/quizzes";
     }
 
+    // FORM EDITAR QUIZ
     @GetMapping("/{idQuiz}/editar")
     public String editarQuizForm(@PathVariable Long idQuiz, Model model) {
         Quiz quiz = quizRepository.buscarPorId(idQuiz);
@@ -50,6 +55,7 @@ public class QuizController {
         return "quiz/form";
     }
 
+    // ATUALIZAR QUIZ
     @PostMapping("/{idQuiz}/atualizar")
     public String atualizarQuiz(@PathVariable Long idQuiz, @ModelAttribute Quiz quiz) {
         quiz.setIdQuiz(idQuiz);
@@ -57,14 +63,17 @@ public class QuizController {
         return "redirect:/quizzes";
     }
 
+    // REMOVER QUIZ
     @PostMapping("/{idQuiz}/remover")
     public String removerQuiz(@PathVariable Long idQuiz) {
         quizRepository.excluir(idQuiz);
         return "redirect:/quizzes";
     }
 
+    // CONFIGURAR QUESTÕES
     @GetMapping("/{idQuiz}/configurar-questoes")
     public String configurarQuestoes(@PathVariable Long idQuiz, Model model) {
+
         Quiz quiz = quizRepository.buscarPorId(idQuiz);
         List<Questao> todasQuestoes = questaoRepository.listarTodas();
         List<Questao> questoesDoQuiz = quizRepository.listarQuestoesDoQuiz(idQuiz);
@@ -80,10 +89,12 @@ public class QuizController {
         return "quiz/configurar_questoes";
     }
 
+    // SALVAR QUESTÕES
     @PostMapping("/{idQuiz}/salvar-questoes")
-    public String salvarQuestoesDoQuiz(@PathVariable Long idQuiz,
-                                       @RequestParam(name = "idsQuestoesSelecionadas", required = false)
-                                       List<Long> idsQuestoesSelecionadas) {
+    public String salvarQuestoesDoQuiz(
+            @PathVariable Long idQuiz,
+            @RequestParam(name = "idsQuestoesSelecionadas", required = false)
+            List<Long> idsQuestoesSelecionadas) {
 
         quizRepository.removerTodasQuestoesDoQuiz(idQuiz);
 

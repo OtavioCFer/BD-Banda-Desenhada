@@ -22,13 +22,13 @@ public class QuestaoController {
     public String listarQuestoes(Model model) {
         List<Questao> questoes = questaoRepository.listarTodas();
         model.addAttribute("questoes", questoes);
-        return "questao/lista";
+        return "questoes/lista";
     }
 
     @GetMapping("/nova")
     public String novaQuestaoForm(Model model) {
         model.addAttribute("questao", new Questao());
-        return "questao/form";
+        return "questoes/form";
     }
 
     @PostMapping
@@ -41,7 +41,7 @@ public class QuestaoController {
     public String editarQuestaoForm(@PathVariable Long idQuestao, Model model) {
         Questao questao = questaoRepository.buscarPorId(idQuestao);
         model.addAttribute("questao", questao);
-        return "questao/form";
+        return "questoes/form";
     }
 
     @PostMapping("/{idQuestao}/atualizar")
