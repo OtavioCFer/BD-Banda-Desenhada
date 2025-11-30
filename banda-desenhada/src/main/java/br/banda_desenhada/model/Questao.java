@@ -5,6 +5,7 @@ public class Questao {
     private Long idQuestao;
     private String enunciado;
     private String tipo;
+    private String respostaCorreta;
 
     public Questao() {
     }
@@ -38,4 +39,13 @@ public class Questao {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public String getRespostaCorreta() {
+    return respostaCorreta;
+    }
+
+    public void setRespostaCorreta(String respostaCorreta) {
+    this.respostaCorreta = respostaCorreta;
+    }
+
 }
