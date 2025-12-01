@@ -37,4 +37,10 @@ public class RelatorioQuizController {
 
         return "relatorios/quiz_usuario";
     }
+
+    @GetMapping
+        public String indexRelatorios() {
+        return "relatorios/menu";
+    }
+
 }
