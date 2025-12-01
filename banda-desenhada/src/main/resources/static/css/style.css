@@ -128,7 +128,7 @@ h2, h3 {
 }
 
 .main-menu a, .admin-links a {
-    /* Centraliza o texto vertical e horizontalmente - OK! */
+    /* Centraliza o texto vertical e horizontalmente*/
     display: flex; 
     justify-content: center;  
     align-items: center;
@@ -146,6 +146,58 @@ h2, h3 {
 .admin-links a .muted-slogan {
     color: var(--text-muted); /* Usa o cinza definido no tema */
     font-weight: normal;     /* Tira do negrito */
+}
+
+/* ==================================== */
+/* Outros Elementos */
+/* ==================================== */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 50px;
+    border-top: 1px solid #333;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Estilos de tabela básicos para templates futuros (Autores/Quadrinhos) */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: var(--bg-card); 
+    border-radius: var(--radius);
+    overflow: hidden; 
+    box-shadow: 0 4px 10px var(--shadow-color); 
+    color: var(--text-muted);
+}
+thead th {
+    background-color: var(--primary-color); 
+    color: var(--text-light);
+    padding: 12px 15px;
+}
+
+/* ==================================== */
+/* Estilos de Tabela (Para Listar Autores) */
+/* ==================================== */
+
+/* Estilo do Cabeçalho (TH) */
+thead th {
+    background-color: var(--primary-color); 
+    color: var(--text-light);
+    padding: 12px 15px;
+    
+    /* CORREÇÃO: Alinha o título à esquerda (como os dados) */
+    text-align: left; 
+    vertical-align: middle;
+}
+
+/* Estilo da Célula de Dados (TD) */
+tbody td {
+    padding: 12px 15px;
+    
+    /* CORREÇÃO: Alinha o conteúdo à esquerda e no meio verticalmente */
+    text-align: left; 
+    vertical-align: middle; 
 }
 
 /* ==================================== */
@@ -222,31 +274,8 @@ button[type="submit"]:hover {
     text-decoration: none;
 }
 
-
-/* ==================================== */
-/* Outros Elementos */
-/* ==================================== */
-footer {
-    text-align: center;
-    padding: 15px 0;
-    margin-top: 50px;
-    border-top: 1px solid #333;
-    color: #666;
-    font-size: 0.9em;
-}
-
-/* Estilos de tabela básicos para templates futuros (Autores/Quadrinhos) */
-table {
-    border-collapse: collapse;
-    width: 100%;
-    background-color: var(--bg-card); 
-    border-radius: var(--radius);
-    overflow: hidden; 
-    box-shadow: 0 4px 10px var(--shadow-color); 
-    color: var(--text-muted);
-}
-thead th {
-    background-color: var(--primary-color); 
-    color: var(--text-light);
+/* Estilos de Célula de Tabela */
+tbody td {
     padding: 12px 15px;
+    vertical-align: middle; /* NOVO: Garante que o conteúdo (como links) esteja centralizado verticalmente */
 }
