@@ -2,44 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${questao.idQuestao} != null ? 'Editar Questão' : 'Nova Questão'">
         Questão
     </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+    <header class="main-header">
+        <h1 th:text="${questao.idQuestao} != null ? 'Editar Questão' : 'Nova Questão'"></h1>
+    </header>
 
-<h1 th:text="${questao.idQuestao} != null ? 'Editar Questão' : 'Nova Questão'"></h1>
+    <main class="container">
+        <h1 th:text="${questao.idQuestao} != null ? 'Editar Questão' : 'Nova Questão'"></h1>
 
-<form th:action="${questao.idQuestao} != null ?
-                 @{'/questoes/' + ${questao.idQuestao} + '/atualizar'} :
-                 @{/questoes}"
-      method="post"
-      th:object="${questao}">
+        <form th:action="${questao.idQuestao} != null ?
+                         @{'/questoes/' + ${questao.idQuestao} + '/atualizar'} :
+                         @{/questoes}"
+              method="post"
+              th:object="${questao}">
 
-    <div>
-        <label for="enunciado">Enunciado:</label><br>
-        <textarea id="enunciado" th:field="*{enunciado}" rows="4" cols="60" required></textarea>
-    </div>
+            <div class="form-group">
+                <label for="enunciado">Enunciado:</label><br>
+                <textarea id="enunciado" th:field="*{enunciado}" rows="4" cols="60" required></textarea>
+            </div>
 
-    <div>
-        <label for="tipo">Tipo:</label>
-        <select id="tipo" th:field="*{tipo}">
-            <option value="MULTIPLA">Múltipla Escolha</option>
-            <option value="TEXTO">Texto Livre</option>
-        </select>
-    </div>
+            <div class="form-group">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" th:field="*{tipo}">
+                    <option value="MULTIPLA">Múltipla Escolha</option>
+                    <option value="TEXTO">Texto Livre</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="respostaCorreta">Resposta Correta (Gabarito):</label><br>
+                <input id="respostaCorreta" type="text" th:field="*{respostaCorreta}">
+                <small style="color: var(--text-muted);">Ex.: "DC", "Marvel", "1938" ou a letra da opção (A, B, C)</small>
+            </div>
+            
+            <br>
+            <div>
+                <button type="submit" class="action-button">Salvar</button>
+                <a th:href="@{/questoes}" class="action-button" style="background-color: gray;">Cancelar</a>
+            </div>
+        </form>
+    </main>
 
-    <div>
-        <button type="submit">Salvar</button>
-        <a th:href="@{/questoes}">Cancelar</a>
-    </div>
-
-    <div>
-        <label for="respostaCorreta">Resposta correta</label><br>
-        <input id="respostaCorreta" type="text" th:field="*{respostaCorreta}">
-        <small>Ex.: "DC", "Marvel", "1938", "A"…</small>
-    </div>
-</form>
-
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>

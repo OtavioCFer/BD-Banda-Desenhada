@@ -2,45 +2,60 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizzes</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Quizzes</h1>
+    <header class="main-header">
+        <h1>Gestão de Quizzes</h1>
+    </header>
 
-<a th:href="@{/quizzes/novo}">Novo Quiz</a>
-|
-<a th:href="@{/questoes}">Gerenciar Questões</a>
+    <main class="container">
+        <h1>Quizzes Cadastrados</h1>
 
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Descrição</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="quiz : ${quizzes}">
-        <td th:text="${quiz.idQuiz}"></td>
-        <td th:text="${quiz.titulo}"></td>
-        <td th:text="${quiz.descricao}"></td>
-        <td>
-            <a th:href="@{'/quizzes/' + ${quiz.idQuiz} + '/editar'}">Editar</a>
-            |
-            <a th:href="@{'/quizzes/' + ${quiz.idQuiz} + '/configurar-questoes'}">Configurar Questões</a>
-            |
-            <a th:href="@{'/responder-quiz/' + ${quiz.idQuiz} + '?idUsuario=1'}">Responder como Usuário 1</a>
-            |
-            <form th:action="@{'/quizzes/' + ${quiz.idQuiz} + '/remover'}"
-                  method="post"
-                  style="display:inline">
-                <button type="submit">Remover</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <p>
+            <a th:href="@{/quizzes/novo}" class="action-button">➕ Novo Quiz</a>
+            <a th:href="@{/questoes}" class="action-button">⚙️ Gerenciar Questões</a>
+        </p>
+        <br>
 
+        <table border="0" cellpadding="5" cellspacing="0">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="quiz : ${quizzes}">
+                <td th:text="${quiz.idQuiz}"></td>
+                <td th:text="${quiz.titulo}"></td>
+                <td th:text="${quiz.descricao}"></td>
+                <td>
+                    <a th:href="@{'/quizzes/' + ${quiz.idQuiz} + '/editar'}">Editar</a>
+                    |
+                    <a th:href="@{'/quizzes/' + ${quiz.idQuiz} + '/configurar-questoes'}">Questões</a>
+                    |
+                    <a th:href="@{'/responder-quiz/' + ${quiz.idQuiz} + '?idUsuario=1'}">Responder</a>
+                    |
+                    <form th:action="@{'/quizzes/' + ${quiz.idQuiz} + '/remover'}"
+                          method="post"
+                          style="display:inline">
+                        <button type="submit">Remover</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>

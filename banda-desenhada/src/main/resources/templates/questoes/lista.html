@@ -2,42 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questões</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+    <header class="main-header">
+        <h1>Gestão de Questões</h1>
+    </header>
 
-<h1>Questões</h1>
+    <main class="container">
+        <h1>Questões Cadastradas</h1>
 
-<a th:href="@{/questoes/nova}">Nova Questão</a>
-|
-<a th:href="@{/quizzes}">Voltar para Quizzes</a>
+        <p>
+            <a th:href="@{/questoes/nova}" class="action-button">➕ Nova Questão</a>
+            <a th:href="@{/quizzes}" class="action-button" style="background-color: gray;">Voltar para Quizzes</a>
+        </p>
 
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Enunciado</th>
-        <th>Tipo</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="questao : ${questoes}">
-        <td th:text="${questao.idQuestao}"></td>
-        <td th:text="${questao.enunciado}"></td>
-        <td th:text="${questao.tipo}"></td>
-        <td>
-            <a th:href="@{'/questoes/' + ${questao.idQuestao} + '/editar'}">Editar</a>
-            |
-            <form th:action="@{'/questoes/' + ${questao.idQuestao} + '/remover'}"
-                  method="post"
-                  style="display:inline">
-                <button type="submit">Remover</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <table border="0" cellpadding="5" cellspacing="0">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Enunciado</th>
+                <th>Tipo</th>
+                <th>Gabarito</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="questao : ${questoes}">
+                <td th:text="${questao.idQuestao}"></td>
+                <td th:text="${questao.enunciado}"></td>
+                <td th:text="${questao.tipo}"></td>
+                <td th:text="${questao.respostaCorreta}"></td>
+                <td>
+                    <a th:href="@{'/questoes/' + ${questao.idQuestao} + '/editar'}">Editar</a>
+                    |
+                    <form th:action="@{'/questoes/' + ${questao.idQuestao} + '/remover'}"
+                          method="post"
+                          style="display:inline">
+                        <button type="submit">Remover</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
 
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>

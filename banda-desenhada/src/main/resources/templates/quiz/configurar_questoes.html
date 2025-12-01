@@ -2,42 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="'Configurar Questões - ' + ${quiz.titulo}">Configurar Questões</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+    <header class="main-header">
+        <h1>Configurar Questões</h1>
+    </header>
 
-<h1 th:text="'Configurar Questões para: ' + ${quiz.titulo}"></h1>
+    <main class="container">
+        <h1 th:text="'Configurar Questões para: ' + ${quiz.titulo}"></h1>
 
-<form th:action="@{'/quizzes/' + ${quiz.idQuiz} + '/salvar-questoes'}" method="post">
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-        <tr>
-            <th>Selecionar</th>
-            <th>ID</th>
-            <th>Enunciado</th>
-            <th>Tipo</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="questao : ${todasQuestoes}">
-            <td>
-                <input type="checkbox"
-                       name="idsQuestoesSelecionadas"
-                       th:value="${questao.idQuestao}"
-                       th:checked="${idsQuestoesDoQuiz.contains(questao.idQuestao)}">
-            </td>
-            <td th:text="${questao.idQuestao}"></td>
-            <td th:text="${questao.enunciado}"></td>
-            <td th:text="${questao.tipo}"></td>
-        </tr>
-        </tbody>
-    </table>
+        <form th:action="@{'/quizzes/' + ${quiz.idQuiz} + '/salvar-questoes'}" method="post">
+            <table border="0" cellpadding="5" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>Selecionar</th>
+                    <th>ID</th>
+                    <th>Enunciado</th>
+                    <th>Tipo</th>
+                    <th>Gabarito</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="questao : ${todasQuestoes}">
+                    <td style="text-align: center;">
+                        <input type="checkbox"
+                               name="idsQuestoesSelecionadas"
+                               th:value="${questao.idQuestao}"
+                               th:checked="${idsQuestoesDoQuiz.contains(questao.idQuestao)}">
+                    </td>
+                    <td th:text="${questao.idQuestao}"></td>
+                    <td th:text="${questao.enunciado}"></td>
+                    <td th:text="${questao.tipo}"></td>
+                    <td th:text="${questao.respostaCorreta}"></td>
+                </tr>
+                </tbody>
+            </table>
 
-    <div style="margin-top: 10px;">
-        <button type="submit">Salvar Questões do Quiz</button>
-        <a th:href="@{/quizzes}">Voltar</a>
-    </div>
-</form>
+            <div style="margin-top: 20px;">
+                <button type="submit" class="action-button">Salvar Questões do Quiz</button>
+                <a th:href="@{/quizzes}" class="action-button" style="background-color: gray;">Voltar</a>
+            </div>
+        </form>
+    </main>
 
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>
