@@ -46,7 +46,7 @@
                 
                 <div th:with="letras=${#lists.toList({'A', 'B', 'C', 'D'})}">
                     <div th:each="letra, stat : ${letras}" class="form-group" style="margin-bottom: 5px;">
-                        <label th:for="${'opcao' + letra}" th:text="'Opção ' + letra + ':'"></label>
+                        <label th:for="${'opcao' + letra}" th:text="${'Alternativa '+ letra + ':'}"></label>
                         <input type="text"
                                th:id="${'opcao' + letra}"
                                th:name="${'opcao' + letra}"
