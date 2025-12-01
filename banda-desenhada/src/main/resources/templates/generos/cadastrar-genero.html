@@ -2,23 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Gênero</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+    <header class="main-header">
+        <h1>Cadastro de Gênero</h1>
+    </header>
 
-<h1>Cadastrar Gênero</h1>
+    <main class="container">
+        <h1>Cadastrar Gênero</h1>
+        
+        <form th:action="@{/generos/cadastrar-genero}" 
+              th:object="${genero}" 
+              method="post">
+            
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input id="nome" type="text" th:field="*{nome}" required />
+            </div>
+            <br>
 
-<form th:action="@{/generos/cadastrar-genero}" th:object="${genero}" method="post">
-    <label>Nome:</label>
-    <input type="text" th:field="*{nome}" required />
-    <br><br>
+            <button type="submit" class="action-button">Salvar</button>
+        </form>
 
-    <button type="submit">Salvar</button>
-</form>
-
-<br>
-<p><a th:href="@{/generos/listar-generos}">⬅ Voltar para a lista de gêneros</a></p>
-<p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
-
+        <br>
+        <p><a th:href="@{/generos/listar-generos}">⬅ Voltar para a lista de gêneros</a></p>
+        <p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>
