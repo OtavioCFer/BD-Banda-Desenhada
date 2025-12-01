@@ -2,44 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quadrinhos - Banda Desenhada</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Quadrinhos cadastrados</h1>
+    <header class="main-header">
+        <h1>Catálogo de Quadrinhos</h1>
+    </header>
 
-<p><a th:href="@{/quadrinhos/cadastrar-quadrinho}">➕ Cadastrar novo quadrinho</a></p>
+    <main class="container">
+        <h1>Quadrinhos Cadastrados</h1>
 
-<p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+        <p>
+            <a th:href="@{/quadrinhos/cadastrar-quadrinho}" class="action-button">➕ Cadastrar novo quadrinho</a>
+        </p>
 
-<table border="1" cellpadding="4" cellspacing="0">
-    <thead>
-    <tr>
-        <th>Título</th>
-        <th>Edição</th>
-        <th>Ano</th>
-        <th>Páginas</th>
-        <th>ISBN</th>
-        <th>Editora</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="q : ${quadrinhos}">
-        <td th:text="${q.titulo}">Título</td>
-        <td th:text="${q.numeroEdicao}">Nº</td>
-        <td th:text="${q.anoEdicao}">Ano</td>
-        <td th:text="${q.paginas}">Páginas</td>
-        <td th:text="${q.isbn}">ISBN</td>
-        <td th:text="${q.nomeEditora}">Editora</td>
-        <td>
-            <a th:href="@{|/avaliacoes/cadastrar/${q.idQuadrinho}|}">Avaliar</a>
-        </td>
-    </tr>
-    <tr th:if="${#lists.isEmpty(quadrinhos)}">
-        <td colspan="7">Nenhum quadrinho cadastrado ainda.</td>
-    </tr>
-    </tbody>
-</table>
+        <table border="0" cellpadding="4" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Edição</th>
+                <th>Ano</th>
+                <th>Páginas</th>
+                <th>ISBN</th>
+                <th>Editora</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="q : ${quadrinhos}">
+                <td th:text="${q.titulo}">Título</td>
+                <td th:text="${q.numeroEdicao}">Nº</td>
+                <td th:text="${q.anoEdicao}">Ano</td>
+                <td th:text="${q.paginas}">Páginas</td>
+                <td th:text="${q.isbn}">ISBN</td>
+                <td th:text="${q.nomeEditora}">Editora</td>
+                <td>
+                    <a th:href="@{|/avaliacoes/cadastrar/${q.idQuadrinho}|}">Avaliar</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(quadrinhos)}">
+                <td colspan="7" style="text-align: center;">Nenhum quadrinho cadastrado ainda.</td>
+            </tr>
+            </tbody>
+        </table>
+        
+        <br>
+        <p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
 
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>

@@ -2,46 +2,69 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Quadrinho</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+    <header class="main-header">
+        <h1>Cadastro de Quadrinhos</h1>
+    </header>
 
-<h1>Cadastrar Quadrinho</h1>
+    <main class="container">
+        <h1>Cadastrar Quadrinho</h1>
+        
+        <form th:action="@{/quadrinhos/cadastrar-quadrinho}"
+              th:object="${quadrinho}"
+              method="post">
+        
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input id="titulo" type="text" th:field="*{titulo}" required />
+            </div>
+            <br>
+        
+            <div class="form-group">
+                <label for="numeroEdicao">Número da edição:</label>
+                <input id="numeroEdicao" type="number" th:field="*{numeroEdicao}" required />
+            </div>
+            <br>
+        
+            <div class="form-group">
+                <label for="anoEdicao">Ano da edição:</label>
+                <input id="anoEdicao" type="number" th:field="*{anoEdicao}" required />
+            </div>
+            <br>
+        
+            <div class="form-group">
+                <label for="paginas">Número de páginas:</label>
+                <input id="paginas" type="number" th:field="*{paginas}" required />
+            </div>
+            <br>
+        
+            <div class="form-group">
+                <label for="isbn">ISBN:</label>
+                <input id="isbn" type="text" th:field="*{isbn}" />
+            </div>
+            <br>
+        
+            <div class="form-group">
+                <label for="idEditora">ID da Editora:</label>
+                <input id="idEditora" type="number" th:field="*{idEditora}" required />
+            </div>
+            <br>
+        
+            <button type="submit" class="action-button">Salvar</button>
+        </form>
+        
+        <br>
+        <p><a th:href="@{/quadrinhos}">⬅ Voltar para a lista de quadrinhos</a></p>
+        <p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
 
-<form th:action="@{/quadrinhos/cadastrar-quadrinho}"
-      th:object="${quadrinho}"
-      method="post">
+    </main>
 
-    <label>Título:</label>
-    <input type="text" th:field="*{titulo}" required />
-    <br><br>
-
-    <label>Número da edição:</label>
-    <input type="number" th:field="*{numeroEdicao}" required />
-    <br><br>
-
-    <label>Ano da edição:</label>
-    <input type="number" th:field="*{anoEdicao}" required />
-    <br><br>
-
-    <label>Número de páginas:</label>
-    <input type="number" th:field="*{paginas}" required />
-    <br><br>
-
-    <label>ISBN:</label>
-    <input type="text" th:field="*{isbn}" />
-    <br><br>
-
-    <label>ID da Editora:</label>
-    <input type="number" th:field="*{idEditora}" required />
-    <br><br>
-
-    <button type="submit">Salvar</button>
-</form>
-
-<br>
-<p><a th:href="@{/quadrinhos}">⬅ Voltar para a lista de quadrinhos</a></p>
-<p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
-
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>
