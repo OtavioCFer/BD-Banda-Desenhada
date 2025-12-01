@@ -47,22 +47,6 @@ public class QuizController {
         return "redirect:/quizzes";
     }
 
-    // FORM EDITAR QUIZ
-    @GetMapping("/{idQuiz}/editar")
-    public String editarQuizForm(@PathVariable Long idQuiz, Model model) {
-        Quiz quiz = quizRepository.buscarPorId(idQuiz);
-        model.addAttribute("quiz", quiz);
-        return "quiz/form";
-    }
-
-    // ATUALIZAR QUIZ
-    @PostMapping("/{idQuiz}/atualizar")
-    public String atualizarQuiz(@PathVariable Long idQuiz, @ModelAttribute Quiz quiz) {
-        quiz.setIdQuiz(idQuiz);
-        quizRepository.atualizar(quiz);
-        return "redirect:/quizzes";
-    }
-
     // REMOVER QUIZ
     @PostMapping("/{idQuiz}/remover")
     public String removerQuiz(@PathVariable Long idQuiz) {
@@ -70,7 +54,7 @@ public class QuizController {
         return "redirect:/quizzes";
     }
 
-    // CONFIGURAR QUESTÕES
+    // CONFIGURAR QUESTÕES (NOVO CENTRO DE GERENCIAMENTO UNIFICADO)
     @GetMapping("/{idQuiz}/configurar-questoes")
     public String configurarQuestoes(@PathVariable Long idQuiz, Model model) {
 
@@ -82,6 +66,7 @@ public class QuizController {
                 .map(Questao::getIdQuestao)
                 .collect(Collectors.toSet());
 
+        // Passa o objeto QUIZ completo para que Título/Descrição sejam editáveis no template
         model.addAttribute("quiz", quiz);
         model.addAttribute("todasQuestoes", todasQuestoes);
         model.addAttribute("idsQuestoesDoQuiz", idsQuestoesDoQuiz);
@@ -89,13 +74,19 @@ public class QuizController {
         return "quiz/configurar_questoes";
     }
 
-    // SALVAR QUESTÕES
+    // SALVAR ALTERAÇÕES (Método unificado para salvar Metadata e Associações)
     @PostMapping("/{idQuiz}/salvar-questoes")
     public String salvarQuestoesDoQuiz(
             @PathVariable Long idQuiz,
+            @ModelAttribute Quiz quiz, // 1. RECEBE TÍTULO/DESCRIÇÃO ATUALIZADOS
             @RequestParam(name = "idsQuestoesSelecionadas", required = false)
             List<Long> idsQuestoesSelecionadas) {
 
+        // 1. ATUALIZA OS METADADOS (Título e Descrição)
+        quiz.setIdQuiz(idQuiz);
+        quizRepository.atualizar(quiz); 
+
+        // 2. ATUALIZA AS ASSOCIAÇÕES DE QUESTÕES
         quizRepository.removerTodasQuestoesDoQuiz(idQuiz);
 
         if (idsQuestoesSelecionadas != null) {

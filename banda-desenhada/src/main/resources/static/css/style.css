@@ -4,8 +4,10 @@
 :root {
     --bg-dark: #121212; /* Fundo principal */
     --bg-card: #1e1e1e; /* Fundo de cards/seções (simulando o View) */
-    --primary-color: #6200EE; /* Roxo Vazio (Accent do App) */
-    --primary-color-dark: #4B0082; /* Cor de hover/pressionar (underlayColor) */
+    --primary-color: #6200EE; /* Roxo Vazio (Accent do App - Responder) */
+    --primary-color-dark: #4B0082; /* Cor de hover/pressionar */
+    --danger-color: #E74C3C; /* Vermelho para Exclusão (Remover) */
+    --danger-color-dark: #C0392B; /* Vermelho hover */
     --text-light: #ffffff; /* Texto principal claro */
     --text-muted: #ddd; /* Texto secundário */
     --shadow-color: rgba(0, 0, 0, 0.8);
@@ -69,7 +71,7 @@ a:hover {
 
 .main-header h1 {
     font-size: 1.5em; 
-    font-weight: bold;
+    font-weight: normal; /* Mantido 'normal' conforme solicitado */
     margin: 0;
     color: var(--text-light);
 }
@@ -93,12 +95,20 @@ a:hover {
     border-radius: var(--radius);
 }
 
+h1 {
+    /* Mantido fora do header, mas estilizado */
+    color: var(--text-light);
+    font-weight: bold; 
+    margin-bottom: 20px;
+}
+
 h2, h3 {
     color: var(--text-light);
     border-left: 5px solid var(--primary-color);
     padding-left: 15px;
     margin-top: 40px;
     margin-bottom: 20px;
+    font-weight: normal;
 }
 
 /* ==================================== */
@@ -136,7 +146,7 @@ h2, h3 {
     text-align: center;
     
     padding: 20px;
-    font-weight: bold;
+    font-weight: normal; /* Normalizado */
     font-size: 1.1em;
     color: var(--text-light); 
     min-height: 50px; 
@@ -145,22 +155,92 @@ h2, h3 {
 .main-menu a .muted-slogan,
 .admin-links a .muted-slogan {
     color: var(--text-muted); /* Usa o cinza definido no tema */
-    font-weight: normal;     /* Tira do negrito */
-}
-
-/* ==================================== */
-/* Outros Elementos */
-/* ==================================== */
-footer {
-    text-align: center;
-    padding: 15px 0;
-    margin-top: 50px;
-    border-top: 1px solid #333;
-    color: #666;
+    font-weight: normal;     
     font-size: 0.9em;
 }
 
-/* Estilos de tabela básicos para templates futuros (Autores/Quadrinhos) */
+/* ==================================== */
+/* Estilos de Botões e Ações em Tabela */
+/* ==================================== */
+
+/* Estilo para links de ação geral dentro da tabela (Removido os separadores |) */
+tbody td a, tbody td button {
+    padding: 8px 12px; 
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s;
+    text-decoration: none; 
+    border: none;
+    margin-right: 8px; /* Espaçamento entre os botões */
+    display: inline-block;
+    font-weight: 500;
+}
+
+/* 1. Estilo para o botão Responder (CAIXA ROXA SÓLIDA) */
+.btn-responder {
+    background-color: var(--primary-color);
+    color: var(--text-light) !important; 
+    font-weight: bold; /* Mantido negrito para ação principal */
+}
+
+.btn-responder:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-1px);
+}
+
+/* 2. Estilo para o botão Remover (CAIXA VERMELHA SÓLIDA) */
+.btn-remover {
+    background-color: var(--danger-color); /* Vermelho */
+    color: var(--text-light) !important;
+    font-weight: bold; /* Mantido negrito para ação de perigo */
+}
+
+.btn-remover:hover {
+    background-color: var(--danger-color-dark); /* Vermelho escuro no hover */
+    transform: translateY(-1px);
+}
+
+/* 3. Estilo para o botão Gerenciar Conteúdo (Sutil) */
+.btn-gerenciar {
+    background-color: var(--bg-card); /* Fundo do card */
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color) !important;
+}
+
+.btn-gerenciar:hover {
+    background-color: var(--primary-color-dark);
+    color: var(--text-light) !important;
+    border-color: var(--primary-color-dark);
+}
+
+/* Estilo para Botões Superiores (Novo Quiz, Gerenciar Questões) */
+.action-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    text-decoration: none;
+    margin-right: 15px; /* Espaçamento entre os botões */
+}
+
+.action-button:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+
+/* ==================================== */
+/* Estilos de Tabela e Alinhamento */
+/* ==================================== */
 table {
     border-collapse: collapse;
     width: 100%;
@@ -169,46 +249,32 @@ table {
     overflow: hidden; 
     box-shadow: 0 4px 10px var(--shadow-color); 
     color: var(--text-muted);
+    margin-top: 20px; /* Adicionado margem para separar do título */
 }
-thead th {
-    background-color: var(--primary-color); 
-    color: var(--text-light);
-    padding: 12px 15px;
-}
-
-/* ==================================== */
-/* Estilos de Tabela (Para Listar Autores) */
-/* ==================================== */
 
 /* Estilo do Cabeçalho (TH) */
 thead th {
     background-color: var(--primary-color); 
     color: var(--text-light);
     padding: 12px 15px;
-    
-    /* CORREÇÃO: Alinha o título à esquerda (como os dados) */
-    text-align: left; 
-    vertical-align: middle;
+    text-align: left; /* Alinha o texto do cabeçalho à esquerda */
+    vertical-align: middle; /* Alinhamento vertical do título */
 }
 
 /* Estilo da Célula de Dados (TD) */
 tbody td {
     padding: 12px 15px;
-    
-    /* CORREÇÃO: Alinha o conteúdo à esquerda e no meio verticalmente */
-    text-align: left; 
-    vertical-align: middle; 
+    text-align: left; /* Alinha o texto à esquerda */
+    vertical-align: middle; /* Alinha o conteúdo (texto/botões) no meio da célula */
 }
 
 /* ==================================== */
-/* Estilos de Formulários e Botões */
+/* Estilos de Formulários */
 /* ==================================== */
-
 .form-group {
-    margin-bottom: 15px; /* Espaçamento entre os campos */
+    margin-bottom: 15px; 
 }
 
-/* Estilo para todos os campos de entrada de dados */
 input[type="text"],
 input[type="number"],
 input[type="email"],
@@ -220,62 +286,37 @@ select {
     padding: 10px;
     margin-top: 5px;
     box-sizing: border-box;
-    
-    /* Cores do tema escuro */
-    background-color: var(--bg-card); /* Fundo escuro do campo */
-    color: var(--text-light);          /* Texto digitado é branco */
-    border: 1px solid var(--primary-color-dark); /* Borda sutil */
+    background-color: var(--bg-card); 
+    color: var(--text-light);          
+    border: 1px solid var(--primary-color-dark); 
     border-radius: var(--radius);
-    
-    /* Efeito de foco sutil */
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Foco no campo */
 input:focus,
 textarea:focus,
 select:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 5px rgba(98, 0, 238, 0.5); /* Sombra roxa sutil */
+    box-shadow: 0 0 5px rgba(98, 0, 238, 0.5); 
     outline: none;
 }
 
-/* Rótulos (Labels) */
 label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: var(--text-muted); /* Cor cinza sutil para rótulos */
+    color: var(--text-muted); 
 }
 
-/* Estilo para Botões e Links de Ação (Aplica-se à classe action-button) */
-.action-button,
-button[type="submit"] {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1em;
-    font-weight: bold;
+
+/* ==================================== */
+/* Footer */
+/* ==================================== */
+footer {
     text-align: center;
-    cursor: pointer;
-    border-radius: var(--radius);
-    transition: background-color 0.2s, color 0.2s, transform 0.2s;
-    
-    /* Estilo do tema */
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    border: none;
-    text-decoration: none;
-}
-
-.action-button:hover,
-button[type="submit"]:hover {
-    background-color: var(--primary-color-dark);
-    transform: translateY(-2px);
-    text-decoration: none;
-}
-
-/* Estilos de Célula de Tabela */
-tbody td {
-    padding: 12px 15px;
-    vertical-align: middle; /* NOVO: Garante que o conteúdo (como links) esteja centralizado verticalmente */
+    padding: 15px 0;
+    margin-top: 50px;
+    border-top: 1px solid #333;
+    color: #666;
+    font-size: 0.9em;
 }
