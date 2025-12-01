@@ -33,6 +33,12 @@
         <button type="submit">Salvar</button>
         <a th:href="@{/questoes}">Cancelar</a>
     </div>
+
+    <div>
+        <label for="respostaCorreta">Resposta correta</label><br>
+        <input id="respostaCorreta" type="text" th:field="*{respostaCorreta}">
+        <small>Ex.: "DC", "Marvel", "1938", "A"…</small>
+    </div>
 </form>
 
 </body>
