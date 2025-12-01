@@ -2,66 +2,84 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avaliar Quadrinho</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+    <header class="main-header">
+        <h1>Avaliação de Quadrinho</h1>
+    </header>
 
-<h1>Avaliar Quadrinho</h1>
+    <main class="container">
+        <h1>Avaliar Quadrinho</h1>
 
-<form th:action="@{/avaliacoes/cadastrar}"
-      th:object="${avaliacao}"
-      method="post">
+        <form th:action="@{/avaliacoes/cadastrar}"
+              th:object="${avaliacao}"
+              method="post">
 
-    <input type="hidden" th:field="*{idQuadrinho}" />
+            <input type="hidden" th:field="*{idQuadrinho}" />
+            <input type="hidden" th:field="*{idUsuario}" />
 
-    <input type="hidden" th:field="*{idUsuario}" />
+            <div class="form-group">
+                <label for="roteiro">Roteiro (1 a 10):</label>
+                <select id="roteiro" th:field="*{roteiro}">
+                    <option th:each="n : ${#numbers.sequence(1,10)}"
+                            th:value="${n}"
+                            th:text="${n}">
+                    </option>
+                </select>
+            </div>
 
-    <label>Roteiro (1 a 10):</label>
-    <select th:field="*{roteiro}">
-        <option th:each="n : ${#numbers.sequence(1,10)}"
-                th:value="${n}"
-                th:text="${n}">
-        </option>
-    </select>
-    <br><br>
+            <div class="form-group">
+                <label for="arte">Arte (1 a 10):</label>
+                <select id="arte" th:field="*{arte}">
+                    <option th:each="n : ${#numbers.sequence(1,10)}"
+                            th:value="${n}"
+                            th:text="${n}">
+                    </option>
+                </select>
+            </div>
 
-    <label>Arte (1 a 10):</label>
-    <select th:field="*{arte}">
-        <option th:each="n : ${#numbers.sequence(1,10)}"
-                th:value="${n}"
-                th:text="${n}">
-        </option>
-    </select>
-    <br><br>
+            <div class="form-group">
+                <label for="cores">Cores (1 a 10):</label>
+                <select id="cores" th:field="*{cores}">
+                    <option th:each="n : ${#numbers.sequence(1,10)}"
+                            th:value="${n}"
+                            th:text="${n}">
+                    </option>
+                </select>
+            </div>
 
-    <label>Cores (1 a 10):</label>
-    <select th:field="*{cores}">
-        <option th:each="n : ${#numbers.sequence(1,10)}"
-                th:value="${n}"
-                th:text="${n}">
-        </option>
-    </select>
-    <br><br>
+            <div class="form-group">
+                <label for="edicao">Edição (1 a 10):</label>
+                <select id="edicao" th:field="*{edicao}">
+                    <option th:each="n : ${#numbers.sequence(1,10)}"
+                            th:value="${n}"
+                            th:text="${n}">
+                    </option>
+                </select>
+            </div>
+            
+            <br>
 
-    <label>Edição (1 a 10):</label>
-    <select th:field="*{edicao}">
-        <option th:each="n : ${#numbers.sequence(1,10)}"
-                th:value="${n}"
-                th:text="${n}">
-        </option>
-    </select>
-    <br><br>
+            <div class="form-group">
+                <label for="comentario">Comentário (opcional):</label><br>
+                <textarea id="comentario" th:field="*{comentario}" rows="4" cols="50"></textarea>
+            </div>
+            
+            <br>
+            
+            <button type="submit" class="action-button">Salvar Avaliação</button>
+        </form>
 
-    <label>Comentário (opcional):</label><br>
-    <textarea th:field="*{comentario}" rows="4" cols="50"></textarea>
-    <br><br>
+        <br>
+        <p><a th:href="@{/quadrinhos}">⬅ Voltar para a lista de quadrinhos</a></p>
+        <p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+    </main>
 
-    <button type="submit">Salvar Avaliação</button>
-</form>
-
-<br>
-<p><a th:href="@{/quadrinhos}">⬅ Voltar para a lista de quadrinhos</a></p>
-<p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
-
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>
