@@ -22,6 +22,7 @@ public class QuestaoRepository {
         questao.setIdQuestao(rs.getLong("id_questao"));
         questao.setEnunciado(rs.getString("enunciado"));
         questao.setTipo(rs.getString("tipo"));
+        questao.setRespostaCorreta(rs.getString("resposta_correta"));
         return questao;
     }
 
@@ -45,24 +46,27 @@ public class QuestaoRepository {
 
     public void inserir(Questao questao) {
         String sql = """
-            INSERT INTO questao (enunciado, tipo)
-            VALUES (?, ?)
+            INSERT INTO questao (enunciado, tipo, resposta_correta)
+            VALUES (?, ?, ?)
             """;
         jdbcTemplate.update(sql,
                 questao.getEnunciado(),
-                questao.getTipo());
+                questao.getTipo(),
+                questao.getRespostaCorreta());
     }
 
     public void atualizar(Questao questao) {
         String sql = """
             UPDATE questao
                SET enunciado = ?,
-                   tipo = ?
+                   tipo = ?,
+                   resposta_correta = ?
              WHERE id_questao = ?
             """;
         jdbcTemplate.update(sql,
                 questao.getEnunciado(),
                 questao.getTipo(),
+                questao.getRespostaCorreta(),
                 questao.getIdQuestao());
     }
 
