@@ -1,12 +1,13 @@
 package br.banda_desenhada.repository;
 
-import br.banda_desenhada.model.Questao;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import br.banda_desenhada.model.Questao;
 
 @Repository
 public class QuestaoRepository {
@@ -28,7 +29,7 @@ public class QuestaoRepository {
 
     public List<Questao> listarTodas() {
         String sql = """
-            SELECT id_questao, enunciado, tipo
+            SELECT id_questao, enunciado, tipo, resposta_correta
               FROM questao
              ORDER BY id_questao
             """;
@@ -37,7 +38,7 @@ public class QuestaoRepository {
 
     public Questao buscarPorId(Long idQuestao) {
         String sql = """
-            SELECT id_questao, enunciado, tipo
+            SELECT id_questao, enunciado, tipo, resposta_correta
               FROM questao
              WHERE id_questao = ?
             """;

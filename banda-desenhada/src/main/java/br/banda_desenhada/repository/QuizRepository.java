@@ -1,13 +1,14 @@
 package br.banda_desenhada.repository;
 
-import br.banda_desenhada.model.Quiz;
-import br.banda_desenhada.model.Questao;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import br.banda_desenhada.model.Questao;
+import br.banda_desenhada.model.Quiz;
 
 @Repository
 public class QuizRepository {
@@ -90,7 +91,7 @@ public class QuizRepository {
 
     public List<Questao> listarQuestoesDoQuiz(Long idQuiz) {
         String sql = """
-            SELECT q.id_questao, q.enunciado, q.tipo
+            SELECT q.id_questao, q.enunciado, q.tipo, q.resposta_correta
               FROM questao q
               JOIN quiz_questao qq ON qq.id_questao = q.id_questao
              WHERE qq.id_quiz = ?
@@ -102,6 +103,7 @@ public class QuizRepository {
             questao.setIdQuestao(rs.getLong("id_questao"));
             questao.setEnunciado(rs.getString("enunciado"));
             questao.setTipo(rs.getString("tipo"));
+            questao.setRespostaCorreta(rs.getString("resposta_correta"));
             return questao;
         }, idQuiz);
     }
