@@ -4,5 +4,5 @@ CREATE TABLE opcao_questao (
     id_questao BIGINT NOT NULL REFERENCES questao(id_questao) ON DELETE CASCADE,
     letra_opcao VARCHAR(1) NOT NULL, -- Ex: 'A', 'B', 'C', 'D'
     texto_opcao VARCHAR(255) NOT NULL, -- O texto/descrição da alternativa
-    CONSTRAINT UQ_QQ_LETRA UNIQUE (id_questao, letra_opcao) -- Garante que uma questão não tenha duas opções 'A'
+    CONSTRAINT UQ_QQ_LETRA UNIQUE (id_questao, letra_opcao) -- Garante que uma questão não tenha duas alternativas 'A'
 );
