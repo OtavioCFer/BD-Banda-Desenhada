@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do Quiz</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header class="main-header">
+        <h1>Resultado do Quiz</h1>
+    </header>
+
+    <main class="container" style="text-align: center;">
+        <h1 style="color: var(--primary-color);">Parabéns!</h1>
+        
+        <h2 style="border: none;">Quiz: <span th:text="${quiz.titulo}">Título do Quiz</span></h2>
+
+        <div style="margin: 40px auto; padding: 20px; background-color: var(--bg-card); border-radius: var(--radius); max-width: 500px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+            <p style="font-size: 1.5em; color: var(--text-light);">
+                Você acertou: 
+                <strong style="font-size: 2em; color: #4CAF50;" th:text="${#numbers.formatDecimal(score, 0, 0) + '%'}">75%</strong>
+            </p>
+            <p style="color: var(--text-muted);">
+                Sua pontuação foi baseada em <span th:text="${totalRespostas}">X</span> questões com gabarito.
+            </p>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <a th:href="@{/quizzes}" class="action-button">Voltar para a Lista de Quizzes</a>
+            <a th:href="@{/}" class="action-button" style="background-color: gray;">Voltar para a Página Inicial</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
+</body>
+</html>
