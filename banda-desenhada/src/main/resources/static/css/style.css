@@ -148,6 +148,80 @@ h2, h3 {
     font-weight: normal;     /* Tira do negrito */
 }
 
+/* ==================================== */
+/* Estilos de Formulários e Botões */
+/* ==================================== */
+
+.form-group {
+    margin-bottom: 15px; /* Espaçamento entre os campos */
+}
+
+/* Estilo para todos os campos de entrada de dados */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    
+    /* Cores do tema escuro */
+    background-color: var(--bg-card); /* Fundo escuro do campo */
+    color: var(--text-light);          /* Texto digitado é branco */
+    border: 1px solid var(--primary-color-dark); /* Borda sutil */
+    border-radius: var(--radius);
+    
+    /* Efeito de foco sutil */
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Foco no campo */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(98, 0, 238, 0.5); /* Sombra roxa sutil */
+    outline: none;
+}
+
+/* Rótulos (Labels) */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--text-muted); /* Cor cinza sutil para rótulos */
+}
+
+/* Estilo para Botões e Links de Ação (Aplica-se à classe action-button) */
+.action-button,
+button[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    
+    /* Estilo do tema */
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    text-decoration: none;
+}
+
+.action-button:hover,
+button[type="submit"]:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
 
 /* ==================================== */
 /* Outros Elementos */
