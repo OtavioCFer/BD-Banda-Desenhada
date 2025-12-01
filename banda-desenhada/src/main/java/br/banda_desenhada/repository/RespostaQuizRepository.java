@@ -80,19 +80,20 @@ public class RespostaQuizRepository {
      * CORREÇÃO: Calcula a taxa de acerto como uma fração (0.0 a 1.0) usando 
      * um SUM e COUNT robusto com conversão explícita (double precision).
      */
-    public Double calcularTaxaAcertoQuiz(Long idQuiz) {
+    public Double calcularTaxaAcertoQuiz(Long idQuiz, long idUsuario) {
         String sql = """
             SELECT 
                 CAST(SUM(CASE WHEN correta = TRUE THEN 1 ELSE 0 END) AS DOUBLE PRECISION) / 
                 NULLIF(COUNT(correta), 0)
             FROM resposta_quiz
             WHERE id_quiz = ?
+             AND id_usuario = ?
             AND correta IS NOT NULL
             """;
         
         try {
             // queryForObject retorna a média (0.0 a 1.0)
-            Double resultado = jdbcTemplate.queryForObject(sql, Double.class, idQuiz);
+            Double resultado = jdbcTemplate.queryForObject(sql, Double.class, idQuiz, idUsuario);
             
             // Se o resultado for NULL (divisão por zero), retorna 0.0
             return resultado != null ? resultado : 0.0; 

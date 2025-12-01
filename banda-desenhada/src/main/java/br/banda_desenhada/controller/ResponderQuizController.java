@@ -103,7 +103,7 @@ public class ResponderQuizController {
         Quiz quiz = quizRepository.buscarPorId(idQuiz);
         
         // Calcula a taxa de acerto 
-        Double taxaAcerto = respostaQuizRepository.calcularTaxaAcertoQuiz(idQuiz);
+        Double taxaAcerto = respostaQuizRepository.calcularTaxaAcertoQuiz(idQuiz, idUsuario);
         
         // Contar o número de questões que tinham um gabarito definido
         List<Questao> questoesComGabarito = quizRepository.listarQuestoesDoQuiz(idQuiz).stream()
