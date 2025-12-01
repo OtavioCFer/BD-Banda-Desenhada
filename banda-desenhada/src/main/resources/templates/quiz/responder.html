@@ -2,42 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="'Responder Quiz - ' + ${quiz.titulo}">Responder Quiz</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+    <header class="main-header">
+        <h1>Responder Quiz</h1>
+    </header>
 
-<h1 th:text="'Responder Quiz: ' + ${quiz.titulo}"></h1>
+    <main class="container">
+        <h1 th:text="'Responder Quiz: ' + ${quiz.titulo}"></h1>
+        <p style="color: var(--text-muted); font-size: 1.1em;" th:text="${quiz.descricao}"></p>
 
-<form th:action="@{'/responder-quiz/' + ${quiz.idQuiz}}" method="post">
-    <input type="hidden" name="idUsuario" th:value="${idUsuario}">
+        <form th:action="@{'/responder-quiz/' + ${quiz.idQuiz}}" method="post">
+            <input type="hidden" name="idUsuario" th:value="${idUsuario}">
 
-    <div th:each="questao, iterStat : ${questoes}" style="margin-bottom: 15px;">
-        <p>
-            <strong th:text="${iterStat.index + 1} + '. ' + ${questao.enunciado}"></strong>
-            <span th:text="' (' + ${questao.tipo} + ')'"></span>
-        </p>
+            <div th:each="questao, iterStat : ${questoes}" 
+                 style="margin-bottom: 30px; padding: 15px; background-color: var(--bg-card); border-radius: var(--radius); box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+                
+                <p>
+                    <strong style="font-size: 1.2em;" th:text="${iterStat.index + 1} + '. ' + ${questao.enunciado}"></strong>
+                    <span style="color: var(--primary-color); font-size: 0.9em;" th:text="' (' + ${questao.tipo} + ')'"></span>
+                </p>
 
-        <div th:switch="${questao.tipo}">
-            <div th:case="'TEXTO'">
-                <textarea th:name="${'resposta_' + questao.idQuestao}"
-                          rows="3"
-                          cols="60"></textarea>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label>Sua Resposta:</label>
+                    <div th:switch="${questao.tipo}">
+                        <div th:case="'TEXTO'">
+                            <textarea th:name="${'resposta_' + questao.idQuestao}"
+                                      rows="3"
+                                      cols="60"
+                                      style="max-width: 100%;"></textarea>
+                        </div>
+                        <div th:case="'MULTIPLA'">
+                            <input type="text"
+                                   th:name="${'resposta_' + questao.idQuestao}"
+                                   placeholder="Digite a opção escolhida (ex: A, B, C)">
+                        </div>
+                        <div th:case="*">
+                            <input type="text"
+                                   th:name="${'resposta_' + questao.idQuestao}">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div th:case="'MULTIPLA'">
-                <input type="text"
-                       th:name="${'resposta_' + questao.idQuestao}"
-                       placeholder="Digite a opção escolhida (ex: A, B, C)">
-            </div>
-            <div th:case="*">
-                <input type="text"
-                       th:name="${'resposta_' + questao.idQuestao}">
-            </div>
-        </div>
-    </div>
 
-    <button type="submit">Enviar Respostas</button>
-    <a th:href="@{/quizzes}">Cancelar</a>
-</form>
+            <div style="margin-top: 20px;">
+                <button type="submit" class="action-button btn-responder">Enviar Respostas</button>
+                <a th:href="@{/quizzes}" class="action-button" style="background-color: gray;">Cancelar</a>
+            </div>
+        </form>
+    </main>
 
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>
