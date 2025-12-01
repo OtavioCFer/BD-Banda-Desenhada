@@ -2,37 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Autores</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Lista de Autores</h1>
+    <header class="main-header">
+        <h1>Gestão de Autores</h1>
+    </header>
 
-<a th:href="@{/autores/cadastrar-autor}">Cadastrar novo autor</a>
-<br><br>
+    <main class="container">
+        <h1>✍️ Lista de Autores</h1>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Pseudônimo</th>
-        <th>Ações</th>
-    </tr>
+        <p>
+            <a th:href="@{/autores/cadastrar-autor}" class="action-button">➕ Cadastrar novo autor</a>
+        </p>
+        <br>
 
-    <tr th:each="autor : ${autores}">
-        <td th:text="${autor.idAutor}"></td>
-        <td th:text="${autor.nome}"></td>
-        <td th:text="${autor.pseudonimo}"></td>
-        <td>
-            <a th:href="@{'/autores/deletar/' + ${autor.idAutor}}" 
-               onclick="return confirm('Deseja realmente excluir este autor?');">
-               Remover
-            </a>
-        </td>
-    </tr>
-</table>
+        <table border="0">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Pseudônimo</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
 
-<br>
-<p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+            <tbody>
+            <tr th:each="autor : ${autores}">
+                <td th:text="${autor.idAutor}"></td>
+                <td th:text="${autor.nome}"></td>
+                <td th:text="${autor.pseudonimo}"></td>
+                <td>
+                    <a th:href="@{'/autores/deletar/' + ${autor.idAutor}}" 
+                       onclick="return confirm('Deseja realmente excluir este autor?');">
+                       Remover
+                    </a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(autores)}">
+                <td colspan="4" style="text-align: center;">Nenhum autor cadastrado ainda.</td>
+            </tr>
+            </tbody>
+        </table>
 
+        <br>
+        <p><a th:href="@{/}">⬅ Voltar para a página inicial</a></p>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Banda Desenhada Project</p>
+    </footer>
 </body>
 </html>
