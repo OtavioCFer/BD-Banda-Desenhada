@@ -1,14 +1,20 @@
 package br.banda_desenhada.repository;
 
-import br.banda_desenhada.model.RespostaQuiz;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.time.LocalDate;
+
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import br.banda_desenhada.model.RespostaQuiz;
+import br.banda_desenhada.dto.RelatorioQuizGeralDTO;
+import br.banda_desenhada.dto.RelatorioQuizUsuarioDTO;
+import br.banda_desenhada.dto.EvolucaoUsuarioQuizDTO;
+
 
 @Repository
 public class RespostaQuizRepository {
@@ -103,5 +109,75 @@ public class RespostaQuizRepository {
     public void excluirRespostasAnteriores(Long idQuiz, Long idUsuario) {
         String sql = "DELETE FROM resposta_quiz WHERE id_quiz = ? AND id_usuario = ?";
         jdbcTemplate.update(sql, idQuiz, idUsuario);
+    }
+
+    public List<RelatorioQuizGeralDTO> listarRelatorioGeralPorQuiz() {
+        String sql = """
+            SELECT 
+                q.id_quiz,
+                q.titulo,
+                COALESCE(AVG(CASE WHEN r.correta THEN 1.0 ELSE 0.0 END) * 100, 0) AS percentual_acerto,
+                COUNT(r.id_resposta) AS total_respostas
+            FROM quiz q
+            LEFT JOIN resposta_quiz r ON r.id_quiz = q.id_quiz
+            GROUP BY q.id_quiz, q.titulo
+            ORDER BY q.titulo
+            """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> 
+            new RelatorioQuizGeralDTO(
+                rs.getLong("id_quiz"),
+                rs.getString("titulo"),
+                rs.getDouble("percentual_acerto"),
+                rs.getInt("total_respostas")
+            )
+        );
+    }
+
+    public List<RelatorioQuizUsuarioDTO> listarRelatorioPorUsuario(Long idUsuario) {
+        String sql = """
+            SELECT 
+                q.id_quiz,
+                q.titulo,
+                AVG(CASE WHEN r.correta THEN 1.0 ELSE 0.0 END) * 100 AS percentual_acerto,
+                COUNT(r.id_resposta) AS total_respostas
+            FROM resposta_quiz r
+            JOIN quiz q ON q.id_quiz = r.id_quiz
+            WHERE r.id_usuario = ?
+            GROUP BY q.id_quiz, q.titulo
+            ORDER BY q.titulo
+            """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new RelatorioQuizUsuarioDTO(
+                rs.getLong("id_quiz"),
+                rs.getString("titulo"),
+                rs.getDouble("percentual_acerto"),
+                rs.getInt("total_respostas")
+            ),
+            idUsuario
+        );
+    }
+
+    public List<EvolucaoUsuarioQuizDTO> listarEvolucaoUsuario(Long idUsuario) {
+        String sql = """
+            SELECT 
+                DATE(r.data_resposta) AS dia,
+                AVG(CASE WHEN r.correta THEN 1.0 ELSE 0.0 END) * 100 AS percentual_acerto,
+                COUNT(r.id_resposta) AS total_respostas
+            FROM resposta_quiz r
+            WHERE r.id_usuario = ?
+            GROUP BY DATE(r.data_resposta)
+            ORDER BY dia
+            """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new EvolucaoUsuarioQuizDTO(
+                rs.getDate("dia").toLocalDate(),
+                rs.getDouble("percentual_acerto"),
+                rs.getInt("total_respostas")
+            ),
+            idUsuario
+        );
     }
 }

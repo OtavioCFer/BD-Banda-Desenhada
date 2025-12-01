@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório por Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="main-header">
+    <h1>Relatório do Usuário</h1>
+</header>
+
+<main class="container">
+    <h1 th:text="'Desempenho do Usuário ID ' + ${idUsuario}"></h1>
+
+    <h2>Resumo por Quiz</h2>
+    <table border="0" cellpadding="5" cellspacing="0">
+        <thead>
+        <tr>
+            <th>ID Quiz</th>
+            <th>Quiz</th>
+            <th>Média de Acertos</th>
+            <th>Total de Respostas</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${relatorios}">
+            <td th:text="${r.idQuiz}"></td>
+            <td th:text="${r.tituloQuiz}"></td>
+            <td th:text="${#numbers.formatDecimal(r.percentualAcerto, 1, 1) + '%'}"></td>
+            <td th:text="${r.totalRespostas}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2 style="margin-top: 30px;">Evolução Temporal</h2>
+    <table border="0" cellpadding="5" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Data</th>
+            <th>Média de Acertos</th>
+            <th>Total de Respostas</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ev : ${evolucao}">
+            <td th:text="${#temporals.format(ev.dia, 'dd/MM/yyyy')}"></td>
+            <td th:text="${#numbers.formatDecimal(ev.percentualAcerto, 1, 1) + '%'}"></td>
+            <td th:text="${ev.totalRespostas}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <p>
+        <a th:href="@{/quizzes}" class="action-button">⬅ Voltar para Quizzes</a>
+        <a th:href="@{/}" class="action-button" style="background-color: gray;">Página Inicial</a>
+    </p>
+</main>
+
+<footer>
+    <p>&copy; 2025 Banda Desenhada Project</p>
+</footer>
+</body>
+</html>

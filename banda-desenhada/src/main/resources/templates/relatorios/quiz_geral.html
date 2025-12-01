@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Geral de Quizzes</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="main-header">
+    <h1>Relatório Geral de Quizzes</h1>
+</header>
+
+<main class="container">
+    <h1>Desempenho Geral</h1>
+
+    <table border="0" cellpadding="5" cellspacing="0">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Quiz</th>
+            <th>Média de Acertos</th>
+            <th>Total de Respostas</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${relatorios}">
+            <td th:text="${r.idQuiz}"></td>
+            <td th:text="${r.tituloQuiz}"></td>
+            <td th:text="${#numbers.formatDecimal(r.percentualAcerto, 1, 1) + '%'}"></td>
+            <td th:text="${r.totalRespostas}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <p>
+        <a th:href="@{/quizzes}" class="action-button">⬅ Voltar para Quizzes</a>
+        <a th:href="@{/}" class="action-button" style="background-color: gray;">Página Inicial</a>
+    </p>
+</main>
+
+<footer>
+    <p>&copy; 2025 Banda Desenhada Project</p>
+</footer>
+</body>
+</html>
