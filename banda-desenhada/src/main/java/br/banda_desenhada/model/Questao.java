@@ -10,10 +10,11 @@ public class Questao {
     public Questao() {
     }
 
-    public Questao(Long idQuestao, String enunciado, String tipo) {
+    public Questao(Long idQuestao, String enunciado, String tipo, String respostaCorreta) {
         this.idQuestao = idQuestao;
         this.enunciado = enunciado;
         this.tipo = tipo;
+        this.respostaCorreta = respostaCorreta;
     }
 
     public Long getIdQuestao() {
@@ -41,11 +42,11 @@ public class Questao {
     }
 
     public String getRespostaCorreta() {
-    return respostaCorreta;
+        return respostaCorreta;
     }
 
     public void setRespostaCorreta(String respostaCorreta) {
-    this.respostaCorreta = respostaCorreta;
+        this.respostaCorreta = respostaCorreta;
     }
 
 }
