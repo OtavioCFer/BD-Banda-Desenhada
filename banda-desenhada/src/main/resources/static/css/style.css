@@ -1,0 +1,178 @@
+/* ==================================== */
+/* Paleta e Variáveis (MyGameRanks Theme) */
+/* ==================================== */
+:root {
+    --bg-dark: #121212; /* Fundo principal */
+    --bg-card: #1e1e1e; /* Fundo de cards/seções (simulando o View) */
+    --primary-color: #6200EE; /* Roxo Vazio (Accent do App) */
+    --primary-color-dark: #4B0082; /* Cor de hover/pressionar (underlayColor) */
+    --text-light: #ffffff; /* Texto principal claro */
+    --text-muted: #ddd; /* Texto secundário */
+    --shadow-color: rgba(0, 0, 0, 0.8);
+    --header-height: 60px; /* Altura do header no App.js */
+    --radius: 10px;
+}
+
+/* ==================================== */
+/* Estilos Globais e Fundo de Imagem */
+/* ==================================== */
+html {
+    /* Aplica a imagem de fundo com um overlay escuro semi-transparente */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://wallpapercave.com/wp/wp6492963.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding-top: var(--header-height); /* Espaço para o header fixo */
+    background-color: transparent; /* Permite ver o fundo de imagem */
+    color: var(--text-light);
+    min-height: 100vh;
+}
+
+/* NOVO: Estilo para todos os links (Remove Sublinhado) */
+a {
+    color: var(--primary-color); 
+    text-decoration: none; /* Removido o sublinhado */
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--primary-color-dark);
+    text-decoration: none; /* Garante que o sublinhado não apareça no hover */
+}
+
+
+/* ==================================== */
+/* Header Fixo (Simulando o topo do App) */
+/* ==================================== */
+.main-header {
+    background-color: var(--primary-color); 
+    color: var(--text-light);
+    padding: 0 20px;
+    text-align: left;
+    
+    /* Fixa o header no topo */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    box-sizing: border-box; 
+    z-index: 100;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    
+    display: flex;
+    align-items: center; /* Centraliza o texto verticalmente */
+}
+
+.main-header h1 {
+    font-size: 1.5em; 
+    font-weight: bold;
+    margin: 0;
+    color: var(--text-light);
+}
+
+.main-header .header-slogan {
+    font-size: 1.0em; 
+    color: var(--text-light);
+    margin: 0; 
+    opacity: 0.8; 
+    margin-left: 15px; /* Espaçamento entre Título e Slogan */
+}
+
+/* ==================================== */
+/* Conteúdo Principal (Container) */
+/* ==================================== */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.5); /* Semi-transparência para legibilidade sobre a imagem */
+    border-radius: var(--radius);
+}
+
+h2, h3 {
+    color: var(--text-light);
+    border-left: 5px solid var(--primary-color);
+    padding-left: 15px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* ==================================== */
+/* Layout de Menus (Cards) */
+/* ==================================== */
+.main-menu ul, .admin-links ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.main-menu li, .admin-links li {
+    flex: 1 1 200px;
+    background-color: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 10px var(--shadow-color); 
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.main-menu li:hover, .admin-links li:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 15px var(--primary-color), 0 4px 10px var(--shadow-color);
+    background-color: var(--primary-color-dark); 
+    cursor: pointer;
+}
+
+.main-menu a, .admin-links a {
+    /* Centraliza o texto vertical e horizontalmente - OK! */
+    display: flex; 
+    justify-content: center;  
+    align-items: center;
+    
+    text-align: center;
+    
+    padding: 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--text-light); 
+    min-height: 50px; 
+}
+
+.main-menu a .muted-slogan,
+.admin-links a .muted-slogan {
+    color: var(--text-muted); /* Usa o cinza definido no tema */
+    font-weight: normal;     /* Tira do negrito */
+}
+
+
+/* ==================================== */
+/* Outros Elementos */
+/* ==================================== */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 50px;
+    border-top: 1px solid #333;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Estilos de tabela básicos para templates futuros (Autores/Quadrinhos) */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: var(--bg-card); 
+    border-radius: var(--radius);
+    overflow: hidden; 
+    box-shadow: 0 4px 10px var(--shadow-color); 
+    color: var(--text-muted);
+}
+thead th {
+    background-color: var(--primary-color); 
+    color: var(--text-light);
+    padding: 12px 15px;
+}
