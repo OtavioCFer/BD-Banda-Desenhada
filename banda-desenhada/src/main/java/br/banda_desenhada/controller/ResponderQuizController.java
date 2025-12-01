@@ -1,16 +1,21 @@
 package br.banda_desenhada.controller;
 
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import br.banda_desenhada.model.Questao;
 import br.banda_desenhada.model.Quiz;
 import br.banda_desenhada.model.RespostaQuiz;
 import br.banda_desenhada.repository.QuizRepository;
 import br.banda_desenhada.repository.RespostaQuizRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/responder-quiz")
@@ -56,15 +61,25 @@ public class ResponderQuizController {
                 resposta.setIdQuestao(questao.getIdQuestao());
                 resposta.setIdUsuario(idUsuario);
 
+                String valorNormalizado = valor.trim();
+
                 if ("TEXTO".equalsIgnoreCase(questao.getTipo())) {
                     resposta.setRespostaTexto(valor);
                     resposta.setRespostaOpcao(null);
+                    resposta.setCorreta(null);
                 } else {
                     resposta.setRespostaOpcao(valor);
                     resposta.setRespostaTexto(null);
-                }
 
-                resposta.setCorreta(null);
+                    String gabarito = questao.getRespostaCorreta();
+                    if (gabarito != null && !gabarito.isBlank()) {
+                        String gabaritoNormalizado = gabarito.trim();
+                        boolean correta = valorNormalizado.equalsIgnoreCase(gabaritoNormalizado);
+                        resposta.setCorreta(correta);
+                    } else {
+                        resposta.setCorreta(null);
+                    }
+                }
 
                 respostaQuizRepository.salvarResposta(resposta);
             }
