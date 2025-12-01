@@ -123,7 +123,7 @@ h2, h3 {
 }
 
 .main-menu li, .admin-links li {
-    flex: 1 1 200px;
+    flex: 1 1 22%;
     background-color: var(--bg-card);
     border-radius: var(--radius);
     box-shadow: 0 4px 10px var(--shadow-color); 
