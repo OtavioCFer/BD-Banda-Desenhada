@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatórios</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="main-header">
+    <h1>Central de Relatórios</h1>
+</header>
+
+<main class="container">
+    <section class="card">
+        <h2>Desempenho Geral dos Quizzes</h2>
+        <p>Visualize a média de acertos e o total de respostas considerando todos os usuários.</p>
+        <a th:href="@{/relatorios/quizzes/geral}" class="action-button">Ver relatório geral</a>
+    </section>
+
+    <section class="card">
+        <h2>Relatório por Usuário</h2>
+        <p>Veja o desempenho de um usuário específico e sua evolução temporal.</p>
+        <a th:href="@{/relatorios/quizzes/usuario/1}" class="action-button">Ver usuário ID 1</a>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Banda Desenhada Project</p>
+</footer>
+</body>
+</html>

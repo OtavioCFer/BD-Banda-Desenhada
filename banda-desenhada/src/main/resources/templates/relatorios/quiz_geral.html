@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório Geral de Quizzes</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <header class="main-header">
@@ -32,6 +33,45 @@
         </tr>
         </tbody>
     </table>
+
+    <h2 style="margin-top: 30px;">Visualização Gráfica</h2>
+
+    <div th:each="r : ${relatorios}" class="quiz-chart" style="margin-bottom: 30px;">
+    <h3 th:text="${r.tituloQuiz}"></h3>
+    <canvas th:attr="id=${'pizzaQuiz' + r.idQuiz}" width="100" height="100"></canvas>
+
+    <script th:inline="javascript">
+        (function() {
+            const canvasId = /*[['pizzaQuiz' + ${r.idQuiz}]]*/ 'pizzaQuiz0';
+            const ctx = document.getElementById(canvasId);
+
+            if (!ctx) return;
+
+            const acerto = /*[[${r.percentualAcerto}]]*/ 0;
+            const erro = 100 - acerto;
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Acertos', 'Erros'],
+                    datasets: [{
+                       data: [acerto, erro],
+                      backgroundColor: ['#4CAF50', '#F44336']
+                    }]
+                },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    })();
+    </script>
+
+    </div>
+
 
     <br>
     <p>
