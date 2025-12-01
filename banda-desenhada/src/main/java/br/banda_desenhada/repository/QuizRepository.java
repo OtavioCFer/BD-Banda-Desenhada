@@ -14,9 +14,12 @@ import br.banda_desenhada.model.Quiz;
 public class QuizRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final OpcaoRepository opcaoRepository; // NOVO: Declaração da dependência
 
-    public QuizRepository(JdbcTemplate jdbcTemplate) {
+    // CONSTRUTOR ATUALIZADO: Injetando OpcaoRepository
+    public QuizRepository(JdbcTemplate jdbcTemplate, OpcaoRepository opcaoRepository) {
         this.jdbcTemplate = jdbcTemplate;
+        this.opcaoRepository = opcaoRepository; 
     }
 
     private Quiz mapearQuiz(ResultSet rs, int rowNum) throws SQLException {
@@ -89,6 +92,10 @@ public class QuizRepository {
         jdbcTemplate.update(sql, idQuiz, idQuestao);
     }
 
+    /**
+     * Carrega as questões associadas a um Quiz e, se o tipo for MULTIPLA,
+     * usa o OpcaoRepository para carregar as opções de escolha.
+     */
     public List<Questao> listarQuestoesDoQuiz(Long idQuiz) {
         String sql = """
             SELECT q.id_questao, q.enunciado, q.tipo, q.resposta_correta
@@ -100,10 +107,19 @@ public class QuizRepository {
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             Questao questao = new Questao();
-            questao.setIdQuestao(rs.getLong("id_questao"));
+            Long idQuestao = rs.getLong("id_questao"); 
+            
+            questao.setIdQuestao(idQuestao);
             questao.setEnunciado(rs.getString("enunciado"));
             questao.setTipo(rs.getString("tipo"));
             questao.setRespostaCorreta(rs.getString("resposta_correta"));
+            
+            // LÓGICA DE CARREGAMENTO DAS OPÇÕES:
+            if ("MULTIPLA".equalsIgnoreCase(questao.getTipo())) {
+                // Aqui o OpcaoRepository é chamado para buscar a lista de opções para o ID da Questão
+                questao.setOpcoes(opcaoRepository.listarPorQuestao(idQuestao)); 
+            }
+            
             return questao;
         }, idQuiz);
     }

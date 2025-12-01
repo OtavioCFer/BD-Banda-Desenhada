@@ -7,6 +7,8 @@
         Questão
     </title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 </head>
 <body>
     <header class="main-header">
@@ -35,10 +37,30 @@
                 </select>
             </div>
             
-            <div class="form-group">
+            <div id="opcoes-container" 
+                 class="form-group" 
+                 style="border: 1px solid var(--primary-color-dark); padding: 15px; border-radius: var(--radius); margin-top: 20px;">
+                
+                <h2>Opções de Múltipla Escolha</h2>
+                <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Preencha apenas as opções que deseja usar.</p>
+                
+                <div th:with="letras=${#lists.toList({'A', 'B', 'C', 'D'})}">
+                    <div th:each="letra, stat : ${letras}" class="form-group" style="margin-bottom: 5px;">
+                        <label th:for="${'opcao' + letra}" th:text="'Opção ' + letra + ':'"></label>
+                        <input type="text"
+                               th:id="${'opcao' + letra}"
+                               th:name="${'opcao' + letra}"
+                               style="max-width: 100%;"
+                               th:value="${questao.opcoes != null and questao.opcoes.size() > stat.index} ? 
+                                         ${questao.opcoes.get(stat.index).getTextoOpcao()} : ''">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group" style="margin-top: 20px;">
                 <label for="respostaCorreta">Resposta Correta (Gabarito):</label><br>
-                <input id="respostaCorreta" type="text" th:field="*{respostaCorreta}">
-                <small style="color: var(--text-muted);">Ex.: "DC", "Marvel", "1938" ou a letra da opção (A, B, C)</small>
+                <input id="respostaCorreta" type="text" th:field="*{respostaCorreta}" placeholder="Ex: A, B, C ou Resposta Completa">
+                <small id="dica-gabarito" style="color: var(--text-muted);"></small>
             </div>
             
             <br>
@@ -52,5 +74,31 @@
     <footer>
         <p>&copy; 2025 Banda Desenhada Project</p>
     </footer>
+
+    <script>
+        $(document).ready(function() {
+            var $tipoSelect = $('#tipo');
+            var $opcoesContainer = $('#opcoes-container');
+            var $dicaGabarito = $('#dica-gabarito');
+
+            function toggleFields() {
+                var tipo = $tipoSelect.val();
+                
+                if (tipo === 'MULTIPLA') {
+                    $opcoesContainer.show();
+                    $dicaGabarito.text('Para Múltipla Escolha, insira a letra correta (Ex: A, B, C).');
+                } else {
+                    $opcoesContainer.hide();
+                    $dicaGabarito.text('Para Texto Livre, insira a resposta exata para a auto-correção (Ex: Bruce Wayne).');
+                }
+            }
+
+            // Ativa no carregamento
+            toggleFields();
+
+            // Ativa na mudança do seletor
+            $tipoSelect.change(toggleFields);
+        });
+    </script>
 </body>
 </html>

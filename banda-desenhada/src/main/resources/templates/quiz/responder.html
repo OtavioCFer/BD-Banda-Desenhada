@@ -29,20 +29,36 @@
                 <div class="form-group" style="margin-top: 15px;">
                     <label>Sua Resposta:</label>
                     <div th:switch="${questao.tipo}">
+                        
                         <div th:case="'TEXTO'">
                             <textarea th:name="${'resposta_' + questao.idQuestao}"
                                       rows="3"
                                       cols="60"
                                       style="max-width: 100%;"></textarea>
                         </div>
+                        
                         <div th:case="'MULTIPLA'">
-                            <input type="text"
-                                   th:name="${'resposta_' + questao.idQuestao}"
-                                   placeholder="Digite a opção escolhida (ex: A, B, C)">
+                            <div th:each="opcao : ${questao.opcoes}" 
+                                 style="margin-bottom: 5px; display: block; padding: 5px 0;">
+                                 
+                                <input type="radio"
+                                       th:id="${'opcao_' + opcao.idOpcao}"
+                                       th:name="${'resposta_' + questao.idQuestao}"
+                                       th:value="${opcao.letraOpcao}"
+                                       required>
+                                       
+                                <label th:for="${'opcao_' + opcao.idOpcao}"
+                                       th:text="${opcao.getLetraOpcao() + ') ' + opcao.getTextoOpcao()}"
+                                       style="display: inline; font-weight: normal; cursor: pointer; color: var(--text-light);"></label>
+                            </div>
+                            
+                            <p th:if="${#lists.isEmpty(questao.opcoes)}" style="color: #E74C3C; margin-top: 10px;">
+                                [ERRO] Nenhuma opção cadastrada para esta questão.
+                            </p>
                         </div>
+                        
                         <div th:case="*">
-                            <input type="text"
-                                   th:name="${'resposta_' + questao.idQuestao}">
+                            <input type="text" th:name="${'resposta_' + questao.idQuestao}">
                         </div>
                     </div>
                 </div>

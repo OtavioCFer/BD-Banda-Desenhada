@@ -1,11 +1,14 @@
 package br.banda_desenhada.model;
 
+import java.util.List;
+
 public class Questao {
 
     private Long idQuestao;
     private String enunciado;
     private String tipo;
     private String respostaCorreta;
+    private List<Opcao> opcoes; // NOVO CAMPO: Lista para armazenar as opções
 
     public Questao() {
     }
@@ -47,6 +50,15 @@ public class Questao {
 
     public void setRespostaCorreta(String respostaCorreta) {
         this.respostaCorreta = respostaCorreta;
+    }
+    
+    // NOVO Getters e Setters para a lista de opções
+    public List<Opcao> getOpcoes() {
+        return opcoes;
+    }
+
+    public void setOpcoes(List<Opcao> opcoes) {
+        this.opcoes = opcoes;
     }
 
 }
